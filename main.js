@@ -477,118 +477,180 @@ const norm = (v) =>
 (async () => {
   await dbConnect();
 
-  const divided = [
-    // ------------------------- 여성 의류 -----------------------------
+  // const divided = [
+  //   // ------------------------- 여성 의류 -----------------------------
 
+  //   {
+  //     cId: "200075142", // 낚시
+  //     cn: "낚시 도구",
+  //     categorieList: [
+  //       {
+  //         cId: "200075142", // 가죽
+  //         cn: "낚시 도구",
+  //       },
+  //     ],
+  //   },
+  //   {},
+  // ];
+
+  const divided = [
+    // {
+    //   cId: "100005537",
+    //   c2n: "낚시",
+    // },
     {
-      cId: "200000345", // 여성 의류
-      cn: "여성 의류",
+      cId: "100005879",
+      c3n: "낚시 가방",
+      categorieList: null,
+    },
+    {
+      cId: "200075142",
+      c3n: "낚시 도구",
+      categorieList: null,
+    },
+    {
+      cId: "13004", // 낚시 로프
+      c3n: "낚시 로프",
+      categorieList: null,
+    },
+    {
+      cId: "100005542", // 낚시 릴 4651개
+      c3n: "낚시 릴",
+      categorieList: null,
+    },
+    {
+      cId: "100005544", // 낚시 미끼 4651개
+      c3n: "낚시 미끼",
+      categorieList: null,
+    },
+    {
+      cId: "201172009", // 낚시 액세서리
+      c3n: "낚시 액세서리",
       categorieList: [
         {
-          cId: "200129142", // 가죽
-          cn: "가죽",
+          cId: "13003",
+          c4n: "낚시 그물",
         },
         {
-          cId: "200000366", // 긴바지
-          cn: "긴바지",
+          cId: "201171811",
+          c4n: "낚시 저울",
         },
         {
-          cId: "202212821", // 데님 반바지
-          cn: "데님 반바지",
+          cId: "201171209", // 드라이백
+          c4n: "드라이백",
         },
         {
-          cId: "201240202", // 캐주얼 팬츠
-          cn: "캐주얼 팬츠",
-        },
-        {
-          cId: "200000865", // 레깅스
-          cn: "레깅스",
-        },
-        {
-          cId: "200003908", // 모피
-          cn: "모피",
-        },
-        {
-          cId: "200001911", // 모피 & 인조 모피
-          cn: "모피 & 인조 모피",
-        },
-        {
-          cId: "200000367", // 반바지
-          cn: "반바지",
-        },
-        {
-          cId: "201516501", // 빅사이즈
-          cn: "빅사이즈",
-        },
-        {
-          cId: "201531101", // 셋업
-          cn: "셋업",
-        },
-        {
-          cId: "200001918", // 수영복
-          cn: "수영복",
-        },
-        {
-          cId: "201241002", // 스웨터 및 점퍼
-          cn: "스웨터 및 점퍼",
-        },
-        {
-          cId: "349", // 스커트
-          cn: "스커트",
-        },
-        {
-          cId: "201303001", // 여성 탑스
-          cn: "여성 탑스",
-        },
-        {
-          cId: "200000347", // 원피스
-          cn: "원피스",
-        },
-        {
-          cId: "200001909", // 인조가죽
-          cn: "인조가죽",
-        },
-        {
-          cId: "200001912", // 재킷 및 정장
-          cn: "재킷 및 정장",
-        },
-        {
-          cId: "200001908", // 점퍼
-          cn: "점퍼",
-        },
-        {
-          cId: "202219298", // 청바지(신품)
-          cn: "청바지(신품)",
-        },
-        {
-          cId: "200000796", // 코트 및 자켓
-          cn: "코트 및 자켓",
-        },
-        {
-          cId: "201240602", // 점프수트 및 롬퍼
-          cn: "점프수트 및 롬퍼",
-        },
-        {
-          cId: "200000778", // 탑 & 티셔츠
-          cn: "탑 & 티셔츠",
-        },
-        {
-          cId: "200128142", // 패딩 자켓
-          cn: "패딩 자켓",
-        },
-        {
-          cId: "200000348", // 후드티 & 맨투맨
-          cn: "후드티 & 맨투맨",
-        },
-        {
-          cId: "200001908", // 여성 점퍼
-          cn: "여성 점퍼",
+          cId: "201170309", // 로드 거치대 1500개
+          c4n: "로드 거치대",
         },
       ],
     },
+
+    {
+      cId: "201170705", // 낚시 의류&용품
+      c3n: "낚시 의류&용품",
+      categorieList: [
+        {
+          cId: "200003620", // 낚시모자 2066개
+          c4n: "낚시 모자",
+        },
+        {
+          cId: "201177507",
+          c4n: "낚시 바지",
+        },
+        {
+          cId: "201170111",
+          c4n: "낚시 반바지",
+        },
+        {
+          cId: "100007483",
+          c4n: "낚시 방수 바지",
+        },
+        {
+          cId: "201168307",
+          c4n: "낚시 벨트류",
+        },
+        {
+          cId: "201172208",
+          c4n: "낚시 셔츠",
+        },
+        {
+          cId: "201172604",
+          c4n: "낚시 안면마스크",
+        },
+        {
+          cId: "201177504",
+          c4n: "낚시 자켓",
+        },
+        {
+          cId: "200003652",
+          c4n: "낚시 선글라스",
+        },
+        {
+          cId: "200003641",
+          c4n: "낚시 장갑",
+        },
+        {
+          cId: "201170308",
+          c4n: "낚시 팔토시",
+        },
+        {
+          cId: "201172605",
+          c4n: "낚시 후드티",
+        },
+        {
+          cId: "200142142",
+          c4n: "낚시 져지",
+        },
+        {
+          cId: "200003639",
+          c4n: "낚시 조끼",
+        },
+      ],
+    },
+    {
+      cId: "100007482",
+      c3n: "낚시 의자",
+      categorieList: null,
+    },
+    {
+      cId: "100007201",
+      c3n: "낚시 찌",
+      categorieList: null,
+    },
+    {
+      cId: "100005541",
+      c3n: "낚시 줄",
+      categorieList: null,
+    },
+    {
+      cId: "100005543",
+      c3n: "낚시대",
+      categorieList: null,
+    },
+    {
+      cId: "200003838",
+      c3n: "낚시대 세트",
+      categorieList: null,
+    },
+    {
+      cId: "100005539",
+      c3n: "낚시바늘",
+      categorieList: null,
+    },
+    {
+      cId: "200002213",
+      c3n: "어군탐지기",
+      categorieList: null,
+    },
+    {
+      cId: "100005546",
+      c3n: "태클박스",
+      categorieList: null,
+    },
   ];
 
-  const categoryItem = divided[0];
+  const categoryItem = divided;
 
   const cnfields = ["c2n", "c3n", "c4n"];
   //
@@ -605,59 +667,77 @@ const norm = (v) =>
 
   // listTasks.item.push(...c1nItem.items);
 
-  // const categoryRes = categoryItem.categorieList
-  //   // .slice(Math.round(divided[10].length / 2), Math.round(divided[10].length))
-  //   .map((item) =>
-  //     limit(async () => {
-  //       let res = [];
+  const categoryRes = categoryItem
+    // .slice(Math.round(divided[10].length / 2), Math.round(divided[10].length))
+    .map((item) =>
+      limit(async () => {
+        if (item?.categorieList?.length >= 1) {
+          for (let category of item.categorieList) {
+            const res = await ProductDetail.find({
+              c4n: category.c4n,
+            })
+              .populate("cId1", "cId cn")
+              .populate("cId2", "cId cn")
+              .select("_id vol")
+              .lean();
 
-  //       for (const field of cnfields) {
-  //         res = await ProductDetail.find({
-  //           c1n: categoryItem.cn,
-  //           [field]: item.cn,
-  //         })
-  //           .populate("cId1", "cId cn")
-  //           .populate("cId2", "cId cn")
-  //           .select("_id vol")
-  //           .lean();
+            const { items, raw, serverCount, filteredCount, note } =
+              await fetchByCategory({
+                categoryId: category.cId,
+              });
 
-  //         if (res?.length) break;
-  //       }
-  //       const { items, raw, serverCount, filteredCount, note } =
-  //         await fetchByCategory({
-  //           categoryId: item.cId,
-  //         });
+            console.log("cid:", category?.cId);
+            console.log("CN:", category?.c4n);
+            console.log("items:", items?.length);
+            console.log("res:", res?.length);
 
-  //       console.log("cid:", item.cId);
-  //       console.log("CN:", item.cn);
-  //       console.log("items:", items.length);
-  //       console.log("res:", res.length);
+            listTasks.item.push(...items);
+            listTasks.dataBaseRes.push(...res);
+          }
+        } else {
+          const res = await ProductDetail.find({
+            c3n: item.c3n,
+          })
+            .populate("cId1", "cId cn")
+            .populate("cId2", "cId cn")
+            .select("_id vol")
+            .lean();
 
-  //       // fetchByCategory안에 filtered 변수도 볼 것 !
+          const { items, raw, serverCount, filteredCount, note } =
+            await fetchByCategory({
+              categoryId: item.cId,
+            });
+          console.log("cid:", item?.cId);
+          console.log("cn:", item?.c3n);
+          console.log("items:", items?.length);
+          console.log("res:", res?.length);
 
-  //       // fetchByCategory 에서 요청을 volume 이 170 이상인것만 받아옴 수정할려면 normalize함수 볼 것
+          listTasks.item.push(...items);
+          listTasks.dataBaseRes.push(...res);
+        }
 
-  //       listTasks.item.push(...items);
-  //       listTasks.dataBaseRes.push(...res);
-  //     }),
-  //   );
+        //  fetchByCategory안에 filtered 변수도 볼 것 !
 
-  // await Promise.allSettled(categoryRes);
+        //  fetchByCategory 에서 요청을 volume 이 170 이상인것만 받아옴 수정할려면 normalize함수 볼 것
+      }),
+    );
+
+  await Promise.allSettled(categoryRes);
 
   // 단일 데이터베이스 요청
 
-  const categoryRes = async () => {
-    let res = await ProductDetail.find({ _id: "1005007010495360" })
-      .populate("cId1", "cId cn")
-      .populate("cId2", "cId cn")
-      .lean({ virtuals: true });
+  // const categoryRes = async () => {
+  //   let res = await ProductDetail.find({ _id: "1005007299104458" })
+  //     .populate("cId1", "cId cn")
+  //     .populate("cId2", "cId cn")
+  //     .lean({ virtuals: true });
 
-    // listTasks.item.push(...items);
-    listTasks.dataBaseRes.push({ _id: "1005007010495360" });
-    listTasks.dataBaseRes.push(...res);
-  };
+  //   // listTasks.item.push(...items);
+  //   listTasks.dataBaseRes.push({ _id: "1005007299104458" });
+  //   listTasks.dataBaseRes.push(...res);
+  // };
 
-  await categoryRes();
+  // await categoryRes();
 
   //  단일 카테고리 요청
   // const categoryRes = async () => {

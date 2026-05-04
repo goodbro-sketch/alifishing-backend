@@ -19,15 +19,7 @@ const synonymsData = [
 
   {
     mappingType: "equivalent",
-    synonyms: [
-      "릴",
-      "낚시릴",
-      "리일",
-      "릴기",
-      "reel",
-      "fishing reel",
-      "릴 장비",
-    ],
+    synonyms: ["릴", "낚시릴", "낚시 릴", "reel", "fishing reel"],
   },
 
   {
@@ -312,6 +304,10 @@ const synonymsData = [
   },
   {
     mappingType: "equivalent",
+    synonyms: ["Baitcasting", "베이트캐스팅"],
+  },
+  {
+    mappingType: "equivalent",
     synonyms: [
       "텅스텐싱커",
       "텅스텐 싱커",
@@ -342,6 +338,18 @@ const synonymsData = [
   {
     mappingType: "equivalent",
     synonyms: ["플로트", "찌", "낚시찌", "float"],
+  },
+  {
+    mappingType: "equivalent",
+    synonyms: ["1", "I"],
+  },
+  {
+    mappingType: "equivalent",
+    synonyms: ["2", "II"],
+  },
+  {
+    mappingType: "equivalent",
+    synonyms: ["3", "III"],
   },
   {
     mappingType: "equivalent",
@@ -390,6 +398,50 @@ const synonymsData = [
   {
     mappingType: "equivalent",
     synonyms: ["legalis", "레가리스"],
+  },
+  {
+    mappingType: "equivalent",
+    synonyms: ["JOHNCOO", "존쿠"],
+  },
+  {
+    mappingType: "equivalent",
+    synonyms: ["에기", "오징어"],
+  },
+  {
+    mappingType: "equivalent",
+    synonyms: ["베타", "better"],
+  },
+  {
+    mappingType: "equivalent",
+    synonyms: ["blue", "블루"],
+  },
+  {
+    mappingType: "equivalent",
+    synonyms: ["s602ul", "S562UL", "S522UL", "C522UL", "C602UL", "피싱팬스"],
+  },
+  {
+    mappingType: "equivalent",
+    synonyms: ["seekbass", "시크베이스", "시크베스"],
+  },
+  {
+    mappingType: "equivalent",
+    synonyms: ["랑스", "랭스"],
+  },
+  {
+    mappingType: "equivalent",
+    synonyms: ["black", "블랙"],
+  },
+  {
+    mappingType: "equivalent",
+    synonyms: ["creek", "크릭"],
+  },
+  {
+    mappingType: "equivalent",
+    synonyms: ["purelure", "퓨어루어", "퓨어러"],
+  },
+  {
+    mappingType: "equivalent",
+    synonyms: ["yanus", "야누스"],
   },
 ];
 

@@ -110,7 +110,7 @@ jobs:
           AE_TRACKING_ID: ${{ secrets.AE_TRACKING_ID }}
           MONGODB_URL: ${{ secrets.MONGODB_URL }}
           NODE_ENV: production
-        run: node main.js
+        run: node affiliate.pickedCategories.js
 
       # 2) 종료 시 정리: 프로젝트 Access List에서 즉시 제거 (TTL과 병행)
       - name: Remove Project Access IP (prefer v1.0)
