@@ -2,7 +2,7 @@ name: Run Playwright Crawler Daily
 
 on:
   schedule:
-    - cron: "30 */6 * * *" # 실행 시각(KST): 09:30, 15:30, 21:30, 03:30(+1일)
+    - cron: "30 15,21,3,9 * * *" # KST: 00:30, 06:30, 12:30, 18:30
   workflow_dispatch:
 
 jobs:
@@ -110,7 +110,7 @@ jobs:
           AE_TRACKING_ID: ${{ secrets.AE_TRACKING_ID }}
           MONGODB_URL: ${{ secrets.MONGODB_URL }}
           NODE_ENV: production
-        run: node affiliate.pickedCategories.js
+        run: node main.js
 
       # 2) 종료 시 정리: 프로젝트 Access List에서 즉시 제거 (TTL과 병행)
       - name: Remove Project Access IP (prefer v1.0)

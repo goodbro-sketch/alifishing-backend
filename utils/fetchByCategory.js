@@ -154,7 +154,7 @@ export async function fetchByCategory({ categoryId }) {
         // SALE_PRICE_DESC → 가격 높은 순
         // LAST_VOLUME_ASC → 최근 판매량 낮은 순
         // LAST_VOLUME_DESC → 최근 판매량 높은 순
-        sort: "LAST_VOLUME_DESC",
+        sort: "LAST_VOLUME_ASC",
 
         fields: FIELDS,
         // 카테고리: 서버가 먹는 키를 모두 전달
