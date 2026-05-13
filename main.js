@@ -498,7 +498,6 @@ const norm = (v) =>
     //   cId: "100005537",
     //   c2n: "낚시",
     // },
-
     // {
     //   cId: "201172009", // 낚시 액세서리
     //   c3n: "낚시 액세서리",
@@ -521,7 +520,6 @@ const norm = (v) =>
     //     },
     //   ],
     // },
-
     // {
     //   cId: "201170705", // 낚시 의류&용품
     //   c3n: "낚시 의류&용품",
@@ -584,7 +582,6 @@ const norm = (v) =>
     //     },
     //   ],
     // },
-
     // {
     //   cId: "100005879",
     //   c3n: "낚시 가방",
@@ -595,6 +592,7 @@ const norm = (v) =>
     //   c3n: "낚시 도구",
     //   categorieList: null,
     // },
+    // -------------------------------------------------------------- 1 -----------------------------------------------------
     {
       cId: "13004", // 낚시 로프
       c3n: "낚시 로프",
@@ -610,7 +608,6 @@ const norm = (v) =>
       c3n: "낚시 미끼",
       categorieList: null,
     },
-
     {
       cId: "100007482",
       c3n: "낚시 의자",
@@ -730,13 +727,13 @@ const norm = (v) =>
   // 단일 데이터베이스 요청
 
   // const categoryRes = async () => {
-  //   let res = await ProductDetail.find({ _id: "1005007299104458" })
+  //   let res = await ProductDetail.find({ _id: "1005012200259825" })
   //     .populate("cId1", "cId cn")
   //     .populate("cId2", "cId cn")
   //     .lean({ virtuals: true });
 
   //   // listTasks.item.push(...items);
-  //   listTasks.dataBaseRes.push({ _id: "1005007299104458" });
+  //   listTasks.dataBaseRes.push({ _id: "1005012200259825" });
   //   listTasks.dataBaseRes.push(...res);
   // };
 
@@ -1006,7 +1003,7 @@ const norm = (v) =>
           });
 
           // 4) 기존 문서의 sku_id 집합만 얇게 조회 — 경로 "sku_info.sil"
-          const doc = await ProductDetail.findById(productId)
+          let doc = await ProductDetail.findById(productId)
             .select(
               "sku_info.sil.c sku_info.sil.sp sku_info.sil.pd sku_info.sil.spKey",
             )
@@ -1229,7 +1226,12 @@ const norm = (v) =>
               },
             }));
 
-            if (!doc.sku_info) doc.sku_info = {};
+            if (!doc) {
+              doc = {};
+            }
+
+            if (!doc?.sku_info) doc.sku_info = {};
+
             if (!Array.isArray(doc.sku_info.sil)) doc.sku_info.sil = [];
 
             doc.sku_info.sil.push(...toPushLocal);
