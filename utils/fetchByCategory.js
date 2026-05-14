@@ -124,103 +124,131 @@ function normalize(p) {
   };
 }
 
-export async function fetchByCategory({ categoryId }) {
-  try {
-    const pageSize = 50;
-    const allItems = [];
-    let pageNo = 1;
-    let breakNo = 0;
-    let lastRaw = null;
-    let totalServerCount = 0;
-    let totalFilteredCount = 0;
+export async function fetchByCategory({ categoryId, priceRange = 5000 }) {
+  const allItems = [];
+  const seen = new Set();
+  let plusNum = 500;
+  const maxPrice = 999999;
+  const pageSize = 50;
 
-    while (true) {
-      const params = {
-        app_key: APP_KEY,
-        method: METHOD,
-        sign_method: "sha256",
-        timestamp: Date.now(), // epoch(ms)
-        v: "1.0",
-        // biz
-        tracking_id: TRACKING_ID,
-        page_no: pageNo,
-        page_size: pageSize,
-        target_language: "KO",
-        target_currency: "KRW",
-        ship_to_country: "KR",
-        // country: "KR", // 필요 시만 사용
+  for (let minPrice = priceRange; minPrice < maxPrice; ) {
+    try {
+      const maxSalePrice = minPrice + plusNum;
 
-        //  SALE_PRICE_ASC → 가격 낮은 순
-        // SALE_PRICE_DESC → 가격 높은 순
-        // LAST_VOLUME_ASC → 최근 판매량 낮은 순
-        // LAST_VOLUME_DESC → 최근 판매량 높은 순
-        sort: "LAST_VOLUME_DESC",
+      let pageItemNum = 0;
+      let pageNo = 1;
+      let breakNo = 0;
+      let lastRaw = null;
+      let totalServerCount = 0;
+      let totalFilteredCount = 0;
 
-        fields: FIELDS,
-        // 카테고리: 서버가 먹는 키를 모두 전달
-        category_ids: String(categoryId),
-        // category_id: String(categoryId),
-        // keywords: "", // 섞임 방지로 비움
-      };
-      params.sign = signSha256(params, APP_SECRET);
+      while (true) {
+        const params = {
+          app_key: APP_KEY,
+          method: METHOD,
+          sign_method: "sha256",
+          timestamp: Date.now(), // epoch(ms)
+          v: "1.0",
+          // biz
+          tracking_id: TRACKING_ID,
+          page_no: pageNo,
+          page_size: pageSize,
+          target_language: "KO",
+          target_currency: "KRW",
+          ship_to_country: "KR",
+          min_sale_price: String(minPrice),
+          max_sale_price: String(maxSalePrice),
 
-      const url = API + "?" + new URLSearchParams(params).toString();
-      // const res = await fetch(url);
-      // const raw = await res.json().catch(() => ({}));
-      const raw = await fetchJsonWithRetry(url);
+          // country: "KR", // 필요 시만 사용
 
-      lastRaw = raw;
+          //  SALE_PRICE_ASC → 가격 낮은 순
+          // SALE_PRICE_DESC → 가격 높은 순
+          // LAST_VOLUME_ASC → 최근 판매량 낮은 순
+          // LAST_VOLUME_DESC → 최근 판매량 높은 순
+          sort: "LAST_VOLUME_ASC",
 
-      // 에러 그대로 전달하되, 형태는 아래 호출부와 호환되게 유지
-      if (raw?.error_response) {
-        return {
-          items: [],
-          raw,
-          serverCount: 0,
-          filteredCount: 0,
-          note: "error_response",
+          fields: FIELDS,
+          // 카테고리: 서버가 먹는 키를 모두 전달
+          category_ids: String(categoryId),
+          // category_id: String(categoryId),
+          // keywords: "", // 섞임 방지로 비움
         };
-      }
+        params.sign = signSha256(params, APP_SECRET);
 
-      // 서버 반환
-      const products = parseProducts(raw);
-      const filtered = products.filter(
-        (p) =>
-          Number(p.first_level_category_id) === Number(categoryId) ||
-          Number(p.second_level_category_id) === Number(categoryId),
-      );
+        const url = API + "?" + new URLSearchParams(params).toString();
+        // const res = await fetch(url);
+        // const raw = await res.json().catch(() => ({}));
+        const raw = await fetchJsonWithRetry(url);
 
-      const final = (filtered.length ? filtered : products).map(normalize);
+        lastRaw = raw;
 
-      totalServerCount += products.length;
-      totalFilteredCount += filtered.length;
-
-      // 현 페이지 결과 누적
-      if (final.length > 0) {
-        allItems.push(...final);
-      }
-
-      // 종료 조건:
-      // - 서버가 더 이상 주지 않음 (0개)
-      // - 페이지 크기 미만(마지막 페이지로 추정)
-      if (products.length === 0 && products.length < pageSize) {
-        if (breakNo === 2) {
-          break;
+        // 에러 그대로 전달하되, 형태는 아래 호출부와 호환되게 유지
+        if (raw?.error_response) {
+          return {
+            items: [],
+            raw,
+            serverCount: 0,
+            filteredCount: 0,
+            note: "error_response",
+          };
         }
-        breakNo++;
-      } else {
-        breakNo = 0;
-        pageNo++;
-      }
-    }
 
-    return {
-      items: allItems,
-      raw: lastRaw, // 마지막 페이지 raw
-      serverCount: totalServerCount,
-      filteredCount: totalFilteredCount,
-    };
-  } catch (e) {
-    console.log("e.message:", e);
+        // 서버 반환
+        const products = parseProducts(raw);
+        const filtered = products.filter(
+          (p) =>
+            Number(p.first_level_category_id) === Number(categoryId) ||
+            Number(p.second_level_category_id) === Number(categoryId),
+        );
+
+        const final = (filtered.length ? filtered : products).map(normalize);
+
+        totalServerCount += products.length;
+        totalFilteredCount += filtered.length;
+
+        // 현 페이지 결과 누적
+        if (final.length > 0) {
+          allItems.push(...final);
+          pageItemNum += final.length;
+        }
+
+        // 종료 조건:
+        // - 서버가 더 이상 주지 않음 (0개)
+        // - 페이지 크기 미만(마지막 페이지로 추정)
+        if (products.length === 0 && products.length < pageSize) {
+          if (breakNo === 2) {
+            console.log(`Price: ${minPrice}~${maxSalePrice}`);
+            console.log("allItems", allItems.length);
+            console.log("pageItemNum", pageItemNum);
+            if (pageItemNum < 200) {
+              minPrice += plusNum;
+              plusNum = plusNum * 2;
+              break;
+            } else {
+              minPrice += plusNum;
+              break;
+            }
+          }
+          breakNo++;
+        } else {
+          breakNo = 0;
+          pageNo++;
+        }
+      }
+      // return {
+      //   items: allItems,
+      //   raw: lastRaw, // 마지막 페이지 raw
+      //   serverCount: totalServerCount,
+      //   filteredCount: totalFilteredCount,
+      // };
+    } catch (e) {
+      console.log("e.message:", e);
+    }
   }
+  return {
+    items: allItems,
+    raw: null, // 마지막 페이지 raw
+    serverCount: null,
+    filteredCount: null,
+  };
 }
