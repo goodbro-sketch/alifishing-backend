@@ -222,7 +222,7 @@ export async function fetchByCategory({ categoryId, priceRange = 5000 }) {
             console.log("pageItemNum", pageItemNum);
             if (pageItemNum < 200) {
               minPrice += plusNum;
-              plusNum = plusNum * 2;
+              plusNum = plusNum * 1.05;
               break;
             } else {
               minPrice += plusNum;
