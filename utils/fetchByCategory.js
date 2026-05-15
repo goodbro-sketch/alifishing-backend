@@ -124,7 +124,7 @@ function normalize(p) {
   };
 }
 
-export async function fetchByCategory({ categoryId, priceRange = 5000 }) {
+export async function fetchByCategory({ categoryId, priceRange = 0 }) {
   const allItems = [];
   const seen = new Set();
   let plusNum = 500;
